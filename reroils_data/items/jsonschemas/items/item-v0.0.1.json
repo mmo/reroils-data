@@ -42,7 +42,7 @@
             "enum": [
                 "standard_loan",
                 "short_loan",
-                "no_loan"
+                "on_site_consultation"
             ]
         },
         "available": {

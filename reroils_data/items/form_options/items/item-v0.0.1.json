@@ -92,7 +92,7 @@
                         "titleMap": [
                             { "value": "standard_loan", "name": "Standard Loan" },
                             { "value": "short_loan", "name": "Short Loan" },
-                            { "value": "no_loan", "name": "Not for Loan" }
+                            { "value": "on_site_consultation", "name": "On Site Consultation" }
                         ]
                     }
                 ]
