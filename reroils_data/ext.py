@@ -45,6 +45,7 @@ class REROILSDATA(object):
             self.init_app(app)
             app.add_template_filter(format_date_filter, name='format_date')
             app.add_template_filter(to_pretty_json, name='tojson_pretty')
+            self.register_signals()
 
     def init_app(self, app):
         """Flask application initialization."""
@@ -62,3 +63,9 @@ class REROILSDATA(object):
         for k in dir(config):
             if k.startswith('REROILS_DATA_'):
                 app.config.setdefault(k, getattr(config, k))
+
+    def register_signals(self):
+        """Register signals."""
+        from .items.signals import item_at_desk
+        from .patrons.listener import listener_item_at_desk
+        item_at_desk.connect(listener_item_at_desk)
