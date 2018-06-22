@@ -48,6 +48,66 @@ def test_bnf_auth_to_identifier_for_person():
     assert identifier_for_person.get('value') == http
 
 
+# # date_of_birth: [103|200]
+# def test_bnf_auth_to_date_of_birth():
+#     """Test dojson bnf_auth_to_date_of_birth."""
+#
+#     marcxml = """
+#     <record>
+#       <datafield tag="103" ind1=" " ind2=" ">
+#         <subfield code="a"> 18030724  18840211 </subfield>
+#       </datafield>
+#     </record>
+#     """
+#     marcjson = create_record(marcxml)
+#     data = bnfauthtojson.do(marcjson)
+#     assert data.get('date_of_birth') == {
+#         'source': 'bnf',
+#         'value': '1803-07-24'
+#     }
+#
+#     marcxml = """
+#     <record>
+#       <datafield tag="103" ind1=" " ind2=" ">
+#         <subfield code="a"> 17820222  1860    ?</subfield>
+#       </datafield>
+#       <datafield tag="200" ind1=" " ind2="|">
+#         <subfield code="7">ba0yba0y</subfield>
+#         <subfield code="8">fre   </subfield>
+#         <subfield code="9"> 0 </subfield>
+#         <subfield code="a">Arnoult</subfield>
+#         <subfield code="b">Stéphen</subfield>
+#         <subfield code="f">1782-1860?</subfield>
+#       </datafield>
+#     </record>
+#     """
+#     marcjson = create_record(marcxml)
+#     data = bnfauthtojson.do(marcjson)
+#     assert data.get('date_of_birth') == {
+#         'source': 'bnf',
+#         'value': '1782-02-22'
+#     }
+#
+#     marcxml = """
+#     <record>
+#       <datafield tag="200" ind1=" " ind2="|">
+#         <subfield code="7">ba0yba0y</subfield>
+#         <subfield code="8">fre   </subfield>
+#         <subfield code="9"> 0 </subfield>
+#         <subfield code="a">Arnoult</subfield>
+#         <subfield code="b">Stéphen</subfield>
+#         <subfield code="f">1782-1860?</subfield>
+#       </datafield>
+#     </record>
+#     """
+#     marcjson = create_record(marcxml)
+#     data = bnfauthtojson.do(marcjson)
+#     assert data.get('date_of_birth') == {
+#         'source': 'bnf',
+#         'value': '1782'
+#     }
+
+
 # gender: [120$a]
 def test_bnf_auth_to_gender():
     """Test dojson bnf_auth_to_gender."""
@@ -139,3 +199,28 @@ def test_bnf_auth_to_biographical_information():
             'value': 'Chef des bureaux 2'
         }
     ]
+
+
+# preferred_name_for_person: [200$ab]
+def test_bnf_auth_to_preferred_name_for_person():
+    """Test dojson bnf_auth_to_preferred_name_for_person."""
+
+    marcxml = """
+    <record>
+      <datafield tag="200" ind1=" " ind2="|">
+        <subfield code="7">ba0yba0y</subfield>
+        <subfield code="8">fre   </subfield>
+        <subfield code="9"> 0 </subfield>
+        <subfield code="a">Aldo</subfield>
+        <subfield code="b">Dr</subfield>
+        <subfield code="f">1813-1875</subfield>
+      </datafield>
+    </record>
+    """
+    marcjson = create_record(marcxml)
+    data = bnfauthtojson.do(marcjson)
+    assert data.get('preferred_name_for_person') == {
+        'source': 'bnf',
+        'language': 'fre',
+        'value': 'Aldo, Dr'
+    }
